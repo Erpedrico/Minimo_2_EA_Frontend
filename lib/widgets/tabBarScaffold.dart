@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/home.dart';
-import 'package:flutter_application_1/screen/perfil.dart';
+import 'package:flutter_application_1/screen/perfilPersonal.dart';
 import 'package:flutter_application_1/screen/user.dart';
 import 'package:flutter_application_1/screen/experiencies.dart';
 
