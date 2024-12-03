@@ -20,25 +20,35 @@ class ExperienceCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            
             Text(
               'Descripción:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+
             const SizedBox(height: 4),
-            Text(experience.description),
+            Text(experience.description ?? 'Sin descripción'),
             const SizedBox(height: 16),
+            
             Text(
               'Propietario:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+
+
             Text('Nombre: ${experience.owner}'),
             const SizedBox(height: 8),
-            Text(
+
+            /*Text(
               'Participantes:',
               style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(experience.participants),
-            const SizedBox(height: 16),
+            ),*/
+
+
+            /*Text(
+              experience.participants != null ? experience.participants!.join(', ') : 'Sin participantes'),
+            const SizedBox(height: 16),*/
+      
             Align(
               alignment: Alignment.centerRight,
               child: IconButton(
@@ -46,6 +56,7 @@ class ExperienceCard extends StatelessWidget {
                 onPressed: onDelete,
               ),
             ),
+
           ],
         ),
       ),

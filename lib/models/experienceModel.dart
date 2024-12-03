@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 class ExperienceModel with ChangeNotifier {
   String _owner;
@@ -41,4 +41,44 @@ class ExperienceModel with ChangeNotifier {
       'comment': _description,
     };
   }
+}*/
+
+class ExperienceModel {
+  final String? id;
+  final String? owner;
+  //final List<String>? participants;
+  final String? description;
+  final String? tipo;
+  final bool? habilitado;
+
+  ExperienceModel({
+    this.id,
+    this.owner,
+    //this.participants,
+    this.description,
+    this.tipo,
+    this.habilitado,
+  });
+
+  factory ExperienceModel.fromJson(Map<String, dynamic> json) {
+    return ExperienceModel(
+      id: json['_id'],
+      owner: json['owner'],
+      //participants: List<String>.from(json['participants']),
+      description: json['description'],
+      tipo: json['tipo'],
+      habilitado: json['habilitado'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'owner': owner,
+      //'participants': participants,
+      'description': description,
+      'tipo': tipo,
+      'habilitado': habilitado,
+    };
+  }
 }
+
