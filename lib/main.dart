@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           name: '/main',
           page: () => TabBarScaffold(),
         ),
+        //Ruta para perfil de user
         GetPage(
           name: '/perfilExternalUsuario',
           page: () => PerfilExternalPage(),

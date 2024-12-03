@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/userModel.dart'; // Ajusta la ruta si tu modelo está en otra carpeta
+import '../models/userModel.dart'; 
 
 class UserCard extends StatelessWidget {
   final UserModel user;
