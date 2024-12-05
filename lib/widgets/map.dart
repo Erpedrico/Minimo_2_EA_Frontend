@@ -12,7 +12,7 @@ class MapPage extends StatelessWidget {
       ),
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(41.382395521312176, 2.1567611541534366), // Ejemplo: Buenos Aires
+          center: LatLng(41.382395521312176, 2.1567611541534366), // 
           zoom: 13.0,
         ),
         children: [
