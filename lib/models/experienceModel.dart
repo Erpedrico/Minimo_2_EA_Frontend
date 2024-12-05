@@ -43,41 +43,55 @@ class ExperienceModel with ChangeNotifier {
   }
 }*/
 
+
 class ExperienceModel {
   final String? id;
+  final String? title;
   final String? owner;
   //final List<String>? participants;
   final String? description;
-  final String? tipo;
-  final bool? habilitado;
+  final int? price;
+  final String? location;
+  final int? contactnumber;
+  final String? contactmail;
+
 
   ExperienceModel({
     this.id,
+    this.title,
     this.owner,
     //this.participants,
     this.description,
-    this.tipo,
-    this.habilitado,
+    this.price,
+    this.location,
+    this.contactnumber,
+    this.contactmail
   });
 
   factory ExperienceModel.fromJson(Map<String, dynamic> json) {
     return ExperienceModel(
       id: json['_id'],
+      title: json['title'],
       owner: json['owner'],
       //participants: List<String>.from(json['participants']),
       description: json['description'],
-      tipo: json['tipo'],
-      habilitado: json['habilitado'],
+      price: json['price'],
+      location: json['location'],
+      contactnumber: json['contactnumber'],
+      contactmail: json['contactmail']
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'title': title,
       'owner': owner,
       //'participants': participants,
       'description': description,
-      'tipo': tipo,
-      'habilitado': habilitado,
+      'price': price,
+      'location': location,
+      'contactnumber': contactnumber,
+      'contactmail':contactmail
     };
   }
 }

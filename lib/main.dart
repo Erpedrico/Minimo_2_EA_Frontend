@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screen/map.dart';
 import 'package:flutter_application_1/screen/perfilExternalUsuario.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/perfilExternalUsuario',
           page: () => PerfilExternalPage(),
+        ),
+        // Ruta para mapa
+        GetPage(
+          name: '/mapa',
+          page: () => MapPage(),
         ),
       ],
     );

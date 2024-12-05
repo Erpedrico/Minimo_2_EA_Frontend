@@ -12,9 +12,13 @@ class _ExperienciesPageState extends State<ExperienciesPage> {
   final ExperienceService _experienceService = ExperienceService();
   List<ExperienceModel> _experiences = [];
   bool _isLoading = true;
+  final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _tipoController = TextEditingController();
   final TextEditingController _ownerController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _contactnumberController = TextEditingController();
+  final TextEditingController _contactmailController = TextEditingController();
   //final TextEditingController _participantsController = TextEditingController();
 
   @override
@@ -42,36 +46,41 @@ class _ExperienciesPageState extends State<ExperienciesPage> {
   }
 
   Future<void> _createExperience() async {
-    try {
-      // Parse participants into a list from the text input
-      /*List<String> participants = _participantsController.text
-          .split(',')
-          .map((participant) => participant.trim())
-          .toList();*/
+  try {
+    // Convertir el texto de _priceController a un número entero
+    int? price = int.tryParse(_priceController.text);
+    int? contactnumber = int.tryParse(_contactnumberController.text);
 
-      ExperienceModel newExperience = ExperienceModel(
-        description: _descriptionController.text,
-        tipo: _tipoController.text,
-        owner: _ownerController.text,
-        //participants: participants,
-        habilitado: true,
-      );
+    ExperienceModel newExperience = ExperienceModel(
+      title: _titleController.text,
+      description: _descriptionController.text,
+      owner: _ownerController.text,
+      price: price, // Usar el entero convertido
+      location: _locationController.text,
+      contactnumber: contactnumber,
+      contactmail: _contactmailController.text,
+    );
 
-      int status = await _experienceService.createExperience(newExperience);
-      if (status == 201) {
-        // Clear all input fields on success
-        _descriptionController.clear();
-        _tipoController.clear();
-        _ownerController.clear();
-        //_participantsController.clear();
-        _loadExperiences(); // Recargar las experiencias
-      } else {
-        print('Error creating experience');
-      }
-    } catch (e) {
-      print('Error creating experience: $e');
+    int status = await _experienceService.createExperience(newExperience);
+    if (status == 201) {
+      // Limpiar los campos de entrada tras un éxito
+      _titleController.clear();
+      _descriptionController.clear();
+      _ownerController.clear();
+      _priceController.clear();
+      _locationController.clear();
+      _contactnumberController.clear();
+      _contactmailController.clear();
+
+      _loadExperiences(); // Recargar las experiencias
+    } else {
+      print('Error creating experience');
     }
+  } catch (e) {
+    print('Error creating experience: $e');
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +95,20 @@ class _ExperienciesPageState extends State<ExperienciesPage> {
                     itemCount: _experiences.length,
                     itemBuilder: (context, index) {
                       final experience = _experiences[index];
+                      
                       return ListTile(
-                        title: Text(experience.description ?? 'Sin descripción'),
-                        subtitle: Text('Owner: ${experience.owner}'),
+                        title: Text(experience.title ?? 'Sin título'),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Descripción: ${experience.description ?? 'Sin descripción'}'),
+                            Text('Owner: ${experience.owner ?? 'Sin owner'}'),
+                            Text('Precio: ${experience.price ?? 'Sin precio'}'),
+                            Text('Localicación: ${experience.location ?? 'Sin localización'}'),
+                            Text('Teléfono de contacto: ${experience.contactnumber ?? 'Sin numero de telefono'}'),
+                            Text('Mail de contacto: ${experience.contactmail ?? 'Sin mail de contacto'}'),
+                          ],
+                        ),
                       );
                     },
                   ),
@@ -98,6 +118,11 @@ class _ExperienciesPageState extends State<ExperienciesPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
+                      
+                      TextField(
+                        controller: _titleController,
+                        decoration: InputDecoration(labelText: 'Titulo'),
+                      ),
 
                       TextField(
                         controller: _descriptionController,
@@ -107,6 +132,26 @@ class _ExperienciesPageState extends State<ExperienciesPage> {
                       TextField(
                         controller: _ownerController,
                         decoration: InputDecoration(labelText: 'Propietario'),
+                      ),
+
+                      TextField(
+                        controller: _priceController,
+                        decoration: InputDecoration(labelText: 'Precio'),
+                      ),
+                      
+                      TextField(
+                        controller: _locationController,
+                        decoration: InputDecoration(labelText: 'Localización'),
+                      ),
+
+                      TextField(
+                        controller: _contactnumberController,
+                        decoration: InputDecoration(labelText: 'Numero de contacto'),
+                      ),
+
+                      TextField(
+                        controller: _contactmailController,
+                        decoration: InputDecoration(labelText: 'Mail de contacto'),
                       ),
 
                       /*TextField(

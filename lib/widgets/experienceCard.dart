@@ -20,10 +20,15 @@ class ExperienceCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+            Text(
+              'Titulo: ',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             
             Text(
               'Descripción:',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 4),
