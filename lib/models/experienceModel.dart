@@ -1,44 +1,106 @@
-import 'package:flutter/material.dart';
+/*class ExperienceModel {
+  final String? id;
+  final String? title;
+  final String? owner;
+  //final List<String>? participants;
+  final String? description;
+  final int? price;
+  final String? location;
+  final int? contactnumber;
+  final String? contactmail;
 
-class ExperienceModel with ChangeNotifier {
-  String _owner;
-  String _participants;
-  String _description;
 
-  // Constructor
-  ExperienceModel({required String owner, required String participants, required String description})
-      : _owner = owner,
-        _participants = participants,
-        _description = description;
+  ExperienceModel({
+    this.id,
+    this.title,
+    this.owner,
+    //this.participants,
+    this.description,
+    this.price,
+    this.location,
+    this.contactnumber,
+    this.contactmail
+  });
 
-  // Getters
-  String get owner => _owner;
-  String get participants => _participants;
-  String get description => _description;
-
-  // Método para actualizar el usuario
-  void setExperience(String owner, String participants, String description) {
-    _owner = owner;
-    _participants = participants;
-    _description = description;
-    notifyListeners();
-  }
-
-  // Método fromJson para crear una instancia de UserModel desde un Map
   factory ExperienceModel.fromJson(Map<String, dynamic> json) {
     return ExperienceModel(
-      owner: json['owner'] ?? 'Propietario desconocido',
-      participants: json['participants'] ?? 'Sin Participantes',
-      description: json['description'] ?? 'Sin descripcion',
+      id: json['_id'],
+      title: json['title'],
+      owner: json['owner'],
+      //participants: List<String>.from(json['participants']),
+      description: json['description'],
+      price: json['price'],
+      location: json['location'],
+      contactnumber: json['contactnumber'],
+      contactmail: json['contactmail']
     );
   }
 
-  // Método toJson para convertir una instancia de UserModel en un Map
   Map<String, dynamic> toJson() {
     return {
-      'name': _owner,
-      'mail': _participants,
-      'comment': _description,
+      'title': title,
+      'owner': owner,
+      //'participants': participants,
+      'description': description,
+      'price': price,
+      'location': location,
+      'contactnumber': contactnumber,
+      'contactmail':contactmail
+    };
+  }
+}*/
+
+import 'package:latlong2/latlong.dart';
+
+class ExperienceModel {
+  String? id;
+  String? title;
+  String? description;
+  String? owner;
+  int? price;
+  String? location;
+  int? contactnumber;
+  String? contactmail;
+  LatLng? coordinates; // Coordenadas calculadas (opcional)
+
+  ExperienceModel({
+    this.id,
+    this.title,
+    this.description,
+    this.owner,
+    this.price,
+    this.location,
+    this.contactnumber,
+    this.contactmail,
+    this.coordinates,
+  });
+
+  factory ExperienceModel.fromJson(Map<String, dynamic> json) {
+    return ExperienceModel(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      owner: json['owner'],
+      price: json['price'],
+      location: json['location'],
+      contactnumber: json['contactnumber'],
+      contactmail: json['contactmail'],
+      coordinates: LatLng(json['latitude'] ?? 0.0, json['longitude'] ?? 0.0), // Usar los valores directamente
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'owner': owner,
+      'price': price,
+      'location': location,
+      'contactnumber': contactnumber,
+      'contactmail': contactmail,
+      'latitude': coordinates?.latitude,
+      'longitude': coordinates?.longitude, // Asegúrate de usar las coordenadas en lugar de lat/lng
     };
   }
 }

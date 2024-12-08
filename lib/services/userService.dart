@@ -1,10 +1,5 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application_1/models/userModel.dart';
-import 'package:flutter_application_1/providers/perfilProvider.dart';
-import 'package:provider/provider.dart';
-
 class UserService {
   final String baseUrl = "http://127.0.0.1:3000"; // URL de tu backend Web
   //final String baseUrl = "http://10.0.2.2:3000"; // URL de tu backend Android
@@ -35,7 +30,7 @@ class UserService {
     //En response guardamos lo que recibimos como respuesta
     //Printeamos los datos recibidos
 
-    data = response.data;
+    data = response.data['user'];
     print('Data: $data');
     //Printeamos el status code recibido por el backend
 
@@ -90,14 +85,22 @@ class UserService {
     }
   }
 
-  Future<UserModel> findUser(String id, String? token) async {
+  Future<UserModel?> findUser(String id, String? token) async {
   try {
+    print('Empieza el findUser');
     dio.options.headers['auth-token'] = token;
-    var res = await dio.get('$baseUrl/api/user/$id');
+    print('Le añadimos el tocken');
+    var res = await dio.get('$baseUrl/api/user/findByUsername/$id');
+    print('Ha llegado la respuesta');
     if (res.statusCode == 200) {
+      print('Usuario no nullo');
       UserModel user = UserModel.fromJson(res.data);
       return user; 
-    } else {
+    } if (res.statusCode == 201) {
+      print('Usuario nullo');
+      return null;
+    }
+    else {
       throw Exception('Failed to load user data');
     }
   } catch (e) {
@@ -208,7 +211,7 @@ Future<dynamic> logIn(logIn) async {
 
     // En response guardamos lo que recibimos como respuesta
     // Printeamos los datos recibidos
-    data = response.data;
+    data = response.data['user'];
     print('Data: $data');
 
     
@@ -244,6 +247,126 @@ Future<dynamic> logIn(logIn) async {
   }
 }
 
+Future<int> addSolicitud(String? myname, String? hisname) async {
+  if (myname == null || myname.isEmpty || hisname == null || hisname.isEmpty) {
+    throw ArgumentError('myname and hisname cannot be null or empty');
+  }
+
+  final encodedMyname = Uri.encodeComponent(myname);
+  final encodedHisname = Uri.encodeComponent(hisname);
+  final url = '$baseUrl/api/user/solicitud/$encodedHisname/$encodedMyname';
+
+  try {
+    print('Sending POST request to $url');
+    var response = await dio.get(url);
+    final statusCode = response.statusCode;
+
+    print('Response status code: $statusCode');
+    if (statusCode == 200) {
+      return 200;
+    } else if (statusCode == 400) {
+      return 400;
+    } else if (statusCode == 500) {
+      return 500;
+    } else {
+      return -1;
+    }
+  } catch (e) {
+    print('Error during HTTP request: $e');
+    return -1;
+  }
+}
+
+  
+  Future<int> delSolicitud(String? myname, String? hisname) async {
+    if (myname == null || myname.isEmpty || hisname == null || hisname.isEmpty) {
+    throw ArgumentError('myname and hisname cannot be null or empty');
+  }
+
+  final encodedMyname = Uri.encodeComponent(myname);
+  final encodedHisname = Uri.encodeComponent(hisname);
+  final url = '$baseUrl/api/user/solicitud/$encodedMyname/$encodedHisname';
+
+  try {
+    print('Sending DELETE request to $url');
+    var response = await dio.delete(url);
+    final statusCode = response.statusCode;
+
+    print('Response status code: $statusCode');
+    if (statusCode == 200) {
+      return 200;
+    } else if (statusCode == 400) {
+      return 400;
+    } else if (statusCode == 500) {
+      return 500;
+    } else {
+      return -1;
+    }
+  } catch (e) {
+    print('Error during HTTP request: $e');
+    return -1;
+  }
+}
+
+Future<int> addFriend(String? myname, String? hisname) async {
+    if (myname == null || myname.isEmpty || hisname == null || hisname.isEmpty) {
+    throw ArgumentError('myname and hisname cannot be null or empty');
+  }
+
+  final encodedMyname = Uri.encodeComponent(myname);
+  final encodedHisname = Uri.encodeComponent(hisname);
+  final url = '$baseUrl/api/user/friend/$encodedMyname/$encodedHisname';
+
+  try {
+    print('Sending POST request to $url');
+    var response = await dio.get(url);
+    final statusCode = response.statusCode;
+
+    print('Response status code: $statusCode');
+    if (statusCode == 200) {
+      return 200;
+    } else if (statusCode == 400) {
+      return 400;
+    } else if (statusCode == 500) {
+      return 500;
+    } else {
+      return -1;
+    }
+  } catch (e) {
+    print('Error during HTTP request: $e');
+    return -1;
+  }
+}
+
+  Future<int> delFriend(String? myname, String? hisname) async {
+    if (myname == null || myname.isEmpty || hisname == null || hisname.isEmpty) {
+    throw ArgumentError('myname and hisname cannot be null or empty');
+  }
+
+  final encodedMyname = Uri.encodeComponent(myname);
+  final encodedHisname = Uri.encodeComponent(hisname);
+  final url = '$baseUrl/api/user/friend/$encodedMyname/$encodedHisname';
+
+  try {
+    print('Sending DELETE request to $url');
+    var response = await dio.delete(url);
+    final statusCode = response.statusCode;
+
+    print('Response status code: $statusCode');
+    if (statusCode == 200) {
+      return 200;
+    } else if (statusCode == 400) {
+      return 400;
+    } else if (statusCode == 500) {
+      return 500;
+    } else {
+      return -1;
+    }
+  } catch (e) {
+    print('Error during HTTP request: $e');
+    return -1;
+  }
+  }
 
   Map<String, dynamic> logInToJson(logIn) {
     return {'username': logIn.username, 'password': logIn.password};

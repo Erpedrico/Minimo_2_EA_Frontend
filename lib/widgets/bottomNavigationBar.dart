@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/experiencies.dart';
-import 'package:flutter_application_1/screen/logIn.dart';
-import 'package:flutter_application_1/screen/register.dart';
 import 'package:flutter_application_1/screen/user.dart';
 import 'package:flutter_application_1/screen/home.dart';
-import 'package:flutter_application_1/screen/perfil.dart';
+import 'package:flutter_application_1/screen/perfilPersonal.dart';
+import 'package:flutter_application_1/screen/map.dart';
 
 
 class BottomNavScaffold extends StatefulWidget {
@@ -21,6 +20,7 @@ class _BottomNavScaffoldState extends State<BottomNavScaffold> {
     UserPage(),
     ExperienciesPage(),
     PerfilPage(),
+    MapPage(),
   ];
 
   // Método para cambiar la pantalla
@@ -55,6 +55,10 @@ class _BottomNavScaffoldState extends State<BottomNavScaffold> {
           BottomNavigationBarItem(
             icon: Icon(Icons.local_activity),
             label: 'Experiencias',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: 'Mapa',
           ),
         ],
       ),

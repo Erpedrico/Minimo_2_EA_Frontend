@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/home.dart';
-import 'package:flutter_application_1/screen/perfil.dart';
+import 'package:flutter_application_1/screen/perfilPersonal.dart';
 import 'package:flutter_application_1/screen/user.dart';
 import 'package:flutter_application_1/screen/experiencies.dart';
+import 'package:flutter_application_1/screen/map.dart';
 
 class TabBarScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4, // Número de pestañas
+      length: 5, // Número de pestañas
       child: Scaffold(
         body: Column(
           children: [
@@ -39,6 +40,10 @@ class TabBarScaffold extends StatelessWidget {
                       icon: Icon(Icons.person),
                       text: 'Perfil',
                     ),
+                    Tab(
+                      icon: Icon(Icons.map),
+                      text: 'Mapa',
+                    ),
                   ],
                 ),
               ),
@@ -50,6 +55,7 @@ class TabBarScaffold extends StatelessWidget {
                   UserPage(), // Página de usuario
                   ExperienciesPage(), // Página de experiencias
                   PerfilPage(), // Página de perfil
+                  MapPage(),
                 ],
               ),
             ),
