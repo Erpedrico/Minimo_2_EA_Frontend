@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 class ExperienceService {
   final String baseUrl = "http://127.0.0.1:3000/api"; // URL de tu backend web
-  // final String baseUrl = "http://10.0.2.2:3000"; // URL de tu backend Android
+  //final String baseUrl = "http://10.0.2.2:3000"; // URL de tu backend Android
   final Dio dio = Dio(); // Instancia de Dio para realizar solicitudes HTTP
   var statusCode;
   var data;
@@ -103,11 +103,11 @@ class ExperienceService {
   }
 
   // Función para eliminar una experiencia por descripción
-  Future<int> deleteExperienceByDescription(String description) async {
-    print('deleteExperienceByDescription');
+  Future<int> deleteExperienceById(String id) async {
+    print('deleteExperienceById');
     try {
       // Enviar solicitud DELETE utilizando la descripción como parámetro en la URL
-      Response response = await dio.delete('$baseUrl/experiencias', data: {"description": description});
+    Response response = await dio.delete('$baseUrl/experiencias/$id');
 
       // Guardar datos de la respuesta
       data = response.data.toString();
