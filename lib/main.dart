@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screen/map.dart';
+import 'package:flutter_application_1/screen/perfilExternalUsuario.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/screen/logIn.dart';
@@ -36,6 +38,16 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/main',
           page: () => TabBarScaffold(),
+        ),
+        //Ruta para perfil de user
+        GetPage(
+          name: '/perfilExternalUsuario',
+          page: () => PerfilExternalPage(),
+        ),
+        // Ruta para mapa
+        GetPage(
+          name: '/mapa',
+          page: () => MapPage(),
         ),
       ],
     );

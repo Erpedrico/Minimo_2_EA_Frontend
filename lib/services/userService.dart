@@ -90,14 +90,22 @@ class UserService {
     }
   }
 
-  Future<UserModel> findUser(String id, String? token) async {
+  Future<UserModel?> findUser(String id, String? token) async {
   try {
+    print('Empieza el findUser');
     dio.options.headers['auth-token'] = token;
+    print('Le añadimos el tocken');
     var res = await dio.get('$baseUrl/api/user/$id');
+    print('Ha llegado la respuesta');
     if (res.statusCode == 200) {
+      print('Usuario no nullo');
       UserModel user = UserModel.fromJson(res.data);
       return user; 
-    } else {
+    } if (res.statusCode == 201) {
+      print('Usuario nullo');
+      return null;
+    }
+    else {
       throw Exception('Failed to load user data');
     }
   } catch (e) {

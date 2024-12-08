@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/providers/perfilProvider.dart';
 import 'package:flutter_application_1/models/userModel.dart';
-import 'package:provider/provider.dart';  // Asegúrate de importar esto
+import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
-class PerfilPage extends StatelessWidget {
+class PerfilExternalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Obtener el PerfilProvider desde el contexto
-    final perfilProvider = Provider.of<PerfilProvider>(context);
+    final perfilProvider = Provider.of<PerfilProvider>(context, listen: false);
 
     // Acceder al perfil actual almacenado en el PerfilProvider
-    UserModel? perfil = perfilProvider.perfilUsuario;
+    UserModel? perfil = perfilProvider.perfilExternalUsuario;
+    UserModel? currentUser = perfilProvider.perfilUsuario;
 
     // Verificamos si existe el perfil, si no, mostramos un mensaje de error
     if (perfil == null) {
@@ -18,6 +20,12 @@ class PerfilPage extends StatelessWidget {
         appBar: AppBar(title: Text("Perfil")),
         body: Center(child: Text("No se ha encontrado el perfil")),
       );
+    }
+
+    // Función para cerrar sesión
+    void volver() {
+      perfilProvider.deleteExternalUser();
+      Get.offNamed('/main');
     }
 
     // Si existe el perfil, mostramos los datos
@@ -48,11 +56,8 @@ class PerfilPage extends StatelessWidget {
             Text("Nombre de Usuario: ${perfil.username}", style: TextStyle(fontSize: 16)),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // Lógica de cierre de sesión o cualquier acción adicional
-                // Por ejemplo, podrías navegar a otra página
-              },
-              child: Text("Cerrar sesión"),
+              onPressed: volver,
+              child: Text("Volver"),
             ),
           ],
         ),
@@ -60,4 +65,3 @@ class PerfilPage extends StatelessWidget {
     );
   }
 }
-
