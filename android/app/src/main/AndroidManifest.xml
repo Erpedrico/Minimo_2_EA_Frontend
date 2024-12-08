@@ -19,7 +19,9 @@
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
-              />
+              
+              android:name="com.mapbox.token"
+              android:value="pk.eyJ1IjoiZGFuaWVscGVyZXpmbG9yaXQiLCJhIjoiY200Ym42d3MwMDFxODJrc2FhbXJ3YW1nbiJ9.ZimE93hGOyHGlimLKUAN9w" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
