@@ -10,6 +10,7 @@ class UserModel with ChangeNotifier {
   String _comment;   
   String _tipo;     
   List<String>? _amigos; 
+  List<String>? _solicitudes; 
 
   // Constructor
   UserModel({
@@ -22,6 +23,7 @@ class UserModel with ChangeNotifier {
     required String comment,
     required String tipo,
     List<String>? amigos,
+    List<String>? solicitudes,
   })  : _username = username,
         _id = id,
         _token = token,
@@ -30,7 +32,8 @@ class UserModel with ChangeNotifier {
         _password = password,
         _comment = comment,
         _tipo = tipo,
-        _amigos = amigos; 
+        _amigos = amigos,
+        _solicitudes = solicitudes; 
 
   // Getters
   String? get username => _username;
@@ -41,7 +44,8 @@ class UserModel with ChangeNotifier {
   String get password => _password;
   String get comment => _comment;
   String get tipo => _tipo;
-  List<String>? get amigos => _amigos;  
+  List<String>? get amigos => _amigos; 
+  List<String>? get solicitudes => _solicitudes; 
 
   // Método para actualizar el usuario
   void setUser({
@@ -53,7 +57,8 @@ class UserModel with ChangeNotifier {
     required String password,
     required String comment,
     required String tipo,
-    List<String>? amigos,  
+    List<String>? amigos,
+    List<String>? solicitud,
   }) {
     _username = username;
     _id = id;
@@ -64,6 +69,7 @@ class UserModel with ChangeNotifier {
     _comment = comment;
     _tipo = tipo;
     _amigos = amigos;
+    _solicitudes = solicitud;
     notifyListeners();
   }
 
@@ -84,6 +90,7 @@ class UserModel with ChangeNotifier {
       comment: json['comment'] ?? 'Sin comentarios',      
       tipo: json['tipo'] ?? 'Sin tipo',  
       amigos: json['amigos'] != null ? List<String>.from(json['amigos']) : [], 
+      solicitudes: json['solicitudes'] != null ? List<String>.from(json['solicitudes']) : [], 
     );
   }
 
@@ -97,7 +104,8 @@ class UserModel with ChangeNotifier {
       'comment': _comment,       
       'tipo': _tipo,
       'habilitado': true,
-      'amigos': _amigos, 
+      'amigos': _amigos,
+      'solicitudes':_solicitudes,
     };
   }
 }

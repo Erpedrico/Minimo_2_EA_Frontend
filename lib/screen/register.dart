@@ -38,6 +38,8 @@ class _RegisterPageState extends State<RegisterPage> {
       password: passwordController.text,
       comment: commentController.text,
       tipo: selectedType,
+      amigos: [],
+      solicitudes: [],
     );
     print(user.username); 
 

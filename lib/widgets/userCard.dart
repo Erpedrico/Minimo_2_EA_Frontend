@@ -4,7 +4,7 @@ import '../models/userModel.dart';
 class UserCard extends StatelessWidget {
   final UserModel user;
 
-  const UserCard({Key? key, required this.user}) : super(key: key);
+  const UserCard({Key? key, required this.user, Row? child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class UserCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(user.mail),
           const SizedBox(height: 8),
-          Text(user.comment ?? "Sin comentarios"),
+          Text(user.comment),
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

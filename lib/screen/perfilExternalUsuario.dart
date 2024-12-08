@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/providers/perfilProvider.dart';
 import 'package:flutter_application_1/models/userModel.dart';
+import 'package:flutter_application_1/services/userService.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 
 class PerfilExternalPage extends StatelessWidget {
+  final UserService _userService = UserService();
   @override
   Widget build(BuildContext context) {
     // Obtener el PerfilProvider desde el contexto
@@ -26,6 +28,27 @@ class PerfilExternalPage extends StatelessWidget {
     void volver() {
       perfilProvider.deleteExternalUser();
       Get.offNamed('/main');
+    }
+
+    void addSolicitud() async{
+      int response = await _userService.addSolicitud(currentUser?.username, perfil.username);
+      // ignore: unrelated_type_equality_checks
+      if (response==200){
+        ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Solicitud de amistad enviada"),
+          duration: Duration(seconds: 2), // El tiempo que aparece el mensaje
+        ),
+      );
+      Get.offNamed('/main');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error al enviar solicitud"),
+          duration: Duration(seconds: 2), // El tiempo que aparece el mensaje
+        ),
+      );
+      }
     }
 
     // Si existe el perfil, mostramos los datos
@@ -58,6 +81,10 @@ class PerfilExternalPage extends StatelessWidget {
             ElevatedButton(
               onPressed: volver,
               child: Text("Volver"),
+            ),
+            ElevatedButton(
+              onPressed: addSolicitud, 
+              child: Text("Enviar solicitud de amistad")
             ),
           ],
         ),
