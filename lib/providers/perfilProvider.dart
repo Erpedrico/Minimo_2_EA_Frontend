@@ -5,6 +5,7 @@ class PerfilProvider with ChangeNotifier {
   UserModel? perfilUsuario;
   UserModel? perfilExternalUsuario;
   UserModel? voidUsuario;
+  String? usernameChat;
 
   // Método para actualizar el usuario
   void updateUser(UserModel newUser) {
@@ -36,5 +37,13 @@ class PerfilProvider with ChangeNotifier {
 
   UserModel? getExternalUser() {
     return perfilExternalUsuario;
+  }
+
+  String? getUsernameChat(){
+    return usernameChat;
+  }
+
+  void setUsernameChat(username){
+    usernameChat=username;
   }
 }

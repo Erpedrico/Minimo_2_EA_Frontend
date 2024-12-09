@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart'; // Asegúrate de importar provider
-import '../models/userModel.dart'; // Asegúrate de que esta ruta sea correcta
-import '../services/userService.dart'; // Asegúrate de que esta ruta sea correcta
-import '../providers/perfilProvider.dart'; // Ruta del perfilProvider
-import '../widgets/userCard.dart'; // Asegúrate de que esta ruta sea correcta
+import 'package:provider/provider.dart'; 
+import '../../models/userModel.dart'; 
+import '../../services/userService.dart'; 
+import '../../providers/perfilProvider.dart'; 
+import '../../widgets/userCard.dart'; 
 
 class UserPage extends StatefulWidget {
   @override

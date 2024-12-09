@@ -37,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
       mail: mailController.text,
       password: passwordController.text,
       comment: commentController.text,
-      tipo: selectedType,
+      tipo: 'wineLover',
       amigos: [],
       solicitudes: [],
     );
@@ -106,20 +106,6 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormField(
                 controller: commentController,
                 decoration: InputDecoration(labelText: 'Comment'),
-              ),
-              SizedBox(height: 20),
-              DropdownButtonFormField<String>(
-                value: selectedType,
-                decoration: InputDecoration(labelText: 'Tipo'),
-                items: [
-                  DropdownMenuItem(value: 'wineLover', child: Text('Wine Lover')),
-                  DropdownMenuItem(value: 'wineMaker', child: Text('Wine Maker')),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    selectedType = value!;
-                  });
-                },
               ),
               SizedBox(height: 20),
               ElevatedButton(

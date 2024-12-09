@@ -5,12 +5,12 @@ import 'package:flutter_application_1/services/userService.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class LogInPage extends StatefulWidget {
+class LogInPageWM extends StatefulWidget {
   @override
-  _LogInPageState createState() => _LogInPageState();
+  _LogInPageStateWM createState() => _LogInPageStateWM();
 }
 
-class _LogInPageState extends State<LogInPage> {
+class _LogInPageStateWM extends State<LogInPageWM> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   
@@ -48,7 +48,7 @@ class _LogInPageState extends State<LogInPage> {
         // Usamos el Provider para acceder a la instancia de PerfilProvider y actualizar el usuario
         final perfilProvider = Provider.of<PerfilProvider>(context, listen: false);
         perfilProvider.updateUser(response); // Actualizamos el perfil del usuario
-        Get.offNamed('/main'); // Redirigimos a la página principal
+        Get.offNamed('/mainWM'); // Redirigimos a la página principal
       } else {
         // Si el login no fue exitoso, mostramos un error
         setState(() {
@@ -67,7 +67,11 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   void toRegister() async {
-    Get.offNamed('/register');
+    Get.offNamed('/registerWM');
+  }
+
+  void toMainPage() async {
+    Get.offNamed('/');
   }
 
   @override
@@ -105,6 +109,10 @@ class _LogInPageState extends State<LogInPage> {
                 ElevatedButton(
                   onPressed: toRegister,
                   child: Text('Registrarse'),
+                ),
+                ElevatedButton(
+                  onPressed: toMainPage,
+                  child: Text('Volver a la pagina principal'),
                 ),
           ],
         ),

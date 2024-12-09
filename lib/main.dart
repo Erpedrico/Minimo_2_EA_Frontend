@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/map.dart';
-import 'package:flutter_application_1/screen/perfilExternalUsuario.dart';
+import 'package:flutter_application_1/screen/screenWineLover/chat.dart';
+import 'package:flutter_application_1/screen/screenWineLover/map.dart';
+import 'package:flutter_application_1/screen/screenWineLover/perfilExternalUsuario.dart';
+import 'package:flutter_application_1/screen/screenWineMaker/logInWM.dart';
+import 'package:flutter_application_1/screen/screenWineMaker/registerWM.dart';
+import 'package:flutter_application_1/widgets/bottomNavigationBarWM.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_application_1/screen/logIn.dart';
-import 'package:flutter_application_1/screen/register.dart';
-import 'package:flutter_application_1/widgets/tabBarScaffold.dart'; 
+import 'package:flutter_application_1/screen/screenWineLover/logIn.dart';
+import 'package:flutter_application_1/screen/screenWineLover/register.dart';
+import 'package:flutter_application_1/screen/initPage.dart';
+import 'package:flutter_application_1/widgets/bottomNavigationBar.dart'; 
+//import 'package:flutter_application_1/widgets/tabBarScaffold.dart'; 
 import 'package:flutter_application_1/providers/perfilProvider.dart';
 
 void main() {
@@ -22,8 +28,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
+      initialRoute: '/',
       getPages: [
+        GetPage(
+          name: '/',
+          page: () => InitPage(),
+        ),
         // Ruta de inicio de sesión
         GetPage(
           name: '/login',
@@ -37,7 +47,21 @@ class MyApp extends StatelessWidget {
         // Ruta para TabBarScaffold
         GetPage(
           name: '/main',
-          page: () => TabBarScaffold(),
+          page: () => BottomNavScaffold(),
+        ),
+         GetPage(
+          name: '/loginWM',
+          page: () => LogInPageWM(),
+        ),
+        // Ruta de registro
+        GetPage(
+          name: '/registerWM',
+          page: () => RegisterPageWM(),
+        ),
+        // Ruta para TabBarScaffold
+        GetPage(
+          name: '/mainWM',
+          page: () => BottomNavScaffoldWM(),
         ),
         //Ruta para perfil de user
         GetPage(
@@ -49,8 +73,13 @@ class MyApp extends StatelessWidget {
           name: '/mapa',
           page: () => MapPage(),
         ),
+        GetPage(
+          name: '/chat',
+          page: () => chatPage(),
+        ),
       ],
     );
   }
 }
+
 

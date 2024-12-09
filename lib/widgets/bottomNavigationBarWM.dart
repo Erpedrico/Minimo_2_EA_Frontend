@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/home.dart';
-import 'package:flutter_application_1/screen/perfilPersonal.dart';
-import 'package:flutter_application_1/screen/user.dart';
-import 'package:flutter_application_1/screen/experiencies.dart';
-import 'package:flutter_application_1/screen/map.dart';
+import 'package:flutter_application_1/screen/screenWineLover/home.dart';
+import 'package:flutter_application_1/screen/screenWineLover/perfilPersonal.dart';
+import 'package:flutter_application_1/screen/screenWineLover/user.dart';
+import 'package:flutter_application_1/screen/screenWineLover/experiencies.dart';
+import 'package:flutter_application_1/screen/screenWineLover/map.dart';
 
-class BottomNavScaffold extends StatefulWidget {
+class BottomNavScaffoldWM extends StatefulWidget {
   @override
-  _BottomNavScaffoldState createState() => _BottomNavScaffoldState();
+  _BottomNavScaffoldStateWM createState() => _BottomNavScaffoldStateWM();
 }
 
-class _BottomNavScaffoldState extends State<BottomNavScaffold> {
+class _BottomNavScaffoldStateWM extends State<BottomNavScaffoldWM> {
   // Índice para controlar la pestaña seleccionada
   int _selectedIndex = 2;
 
