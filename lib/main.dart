@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/providers/perfilProvider.dart';
+import 'package:flutter_application_1/conciencia_digital/timerService.dart';
+import 'package:provider/provider.dart';
+import 'package:get/get.dart';
+import 'package:flutter_application_1/screen/initPage.dart';
 import 'package:flutter_application_1/screen/screenWineLover/chat.dart';
 import 'package:flutter_application_1/screen/screenWineLover/map.dart';
 import 'package:flutter_application_1/screen/screenWineLover/perfilExternalUsuario.dart';
+import 'package:flutter_application_1/screen/screenWineLover/logIn.dart';
+import 'package:flutter_application_1/screen/screenWineLover/register.dart';
+import 'package:flutter_application_1/widgets/bottomNavigationBar.dart';
+import 'package:flutter_application_1/widgets/tabBarScaffold.dart';
 import 'package:flutter_application_1/screen/screenWineMaker/logInWM.dart';
 import 'package:flutter_application_1/screen/screenWineMaker/registerWM.dart';
 import 'package:flutter_application_1/widgets/bottomNavigationBarWM.dart';
-import 'package:get/get.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_application_1/screen/screenWineLover/logIn.dart';
-import 'package:flutter_application_1/screen/screenWineLover/register.dart';
-import 'package:flutter_application_1/screen/initPage.dart';
-import 'package:flutter_application_1/widgets/bottomNavigationBar.dart'; 
-//import 'package:flutter_application_1/widgets/tabBarScaffold.dart'; 
-import 'package:flutter_application_1/providers/perfilProvider.dart';
+import 'package:flutter_application_1/widgets/tabBarScaffoldWM.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => PerfilProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => PerfilProvider()),
+        ChangeNotifierProvider(create: (context) => TimerService()),
+      ],
       child: MyApp(),
     ),
   );
@@ -43,6 +48,14 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/register',
           page: () => RegisterPage(),
+        ),
+        GetPage(
+          name: '/lyr',
+          page: () => TabBarScaffold(),
+        ),
+        GetPage(
+          name: '/lyrWM',
+          page: () => TabBarScaffoldWM(),
         ),
         // Ruta para TabBarScaffold
         GetPage(

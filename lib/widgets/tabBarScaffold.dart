@@ -1,48 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/home.dart';
-import 'package:flutter_application_1/screen/perfilPersonal.dart';
-import 'package:flutter_application_1/screen/user.dart';
-import 'package:flutter_application_1/screen/experiencies.dart';
-import 'package:flutter_application_1/screen/map.dart';
+import 'package:flutter_application_1/screen/screenWineLover/logIn.dart';
+import 'package:flutter_application_1/screen/screenWineLover/register.dart';
 
 class TabBarScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5, // Número de pestañas
+    return DefaultTabController( 
+      length: 2, // Número de pestañas (LogIn y Register)
       child: Scaffold(
         body: Column(
           children: [
             Material(
-              color: Color(0xFF6A1B9A), // Lila oscuro
               child: Container(
                 padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top), // Para manejar el notch
                 child: const TabBar(
-                  indicatorColor: Colors.white, // Indicador blanco
-                  indicatorWeight: 2, // Grosor del indicador
-                  labelColor: Colors.white, // Texto activo blanco
-                  unselectedLabelColor: Colors.white70, // Texto inactivo gris
-                  labelStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                  indicatorColor: Color(0xFF6A1B9A), // Línea debajo de las pestañas en morado
+                  indicatorWeight: 3, // Grosor del indicador
+                  labelColor: Colors.black, // Texto activo en negro
+                  unselectedLabelColor: Colors.black, // Texto inactivo en negro
+                  labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600), // Aumentamos el tamaño y estilo del texto
                   tabs: [
                     Tab(
-                      icon: Icon(Icons.wine_bar),
-                      text: 'Home',
+                      text: 'LogIn',
                     ),
                     Tab(
-                      icon: Icon(Icons.favorite),
-                      text: 'Amigos',
-                    ),
-                    Tab(
-                      icon: Icon(Icons.explore),
-                      text: 'Experiencias',
-                    ),
-                    Tab(
-                      icon: Icon(Icons.person),
-                      text: 'Perfil',
-                    ),
-                    Tab(
-                      icon: Icon(Icons.map),
-                      text: 'Mapa',
+                      text: 'Register',
                     ),
                   ],
                 ),
@@ -51,11 +33,8 @@ class TabBarScaffold extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  HomePage(), // Página de inicio
-                  UserPage(), // Página de usuario
-                  ExperienciesPage(), // Página de experiencias
-                  PerfilPage(), // Página de perfil
-                  MapPage(),
+                  LogInPage(), // Página de inicio
+                  RegisterPage(), // Página de registro
                 ],
               ),
             ),
@@ -65,3 +44,4 @@ class TabBarScaffold extends StatelessWidget {
     );
   }
 }
+

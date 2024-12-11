@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/home.dart';
-import 'package:flutter_application_1/screen/perfilPersonal.dart';
-import 'package:flutter_application_1/screen/user.dart';
-import 'package:flutter_application_1/screen/experiencies.dart';
-import 'package:flutter_application_1/screen/map.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_application_1/conciencia_digital/timerService.dart';
+import 'package:flutter_application_1/screen/screenWineLover/home.dart';
+import 'package:flutter_application_1/screen/screenWineLover/perfilPersonal.dart';
+import 'package:flutter_application_1/screen/screenWineLover/user.dart';
+import 'package:flutter_application_1/screen/screenWineLover/experiencies.dart';
+import 'package:flutter_application_1/screen/screenWineLover/map.dart';
 
 class BottomNavScaffold extends StatefulWidget {
   @override
@@ -28,6 +30,32 @@ class _BottomNavScaffoldState extends State<BottomNavScaffold> {
     setState(() {
       _selectedIndex = index; // Actualiza el índice seleccionado
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final timerService = Provider.of<TimerService>(context, listen: true);
+    if (timerService.elapsedMinutes % 10 == 0 && timerService.elapsedMinutes > 0) {
+      _showTakeABreakDialog();
+    }
+  }
+
+  void _showTakeABreakDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("¡Tómate un descanso!"),
+        content: Text("Llevas mucho tiempo con el móvil, ¿qué tal un descanso?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Ok"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -69,6 +97,3 @@ class _BottomNavScaffoldState extends State<BottomNavScaffold> {
     );
   }
 }
-
-
-

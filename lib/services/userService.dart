@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/models/userModel.dart';
 class UserService {
+  //final String baseUrl = "http://147.83.7.158:5000";
   final String baseUrl = "http://127.0.0.1:3000"; // URL de tu backend Web
   //final String baseUrl = "http://10.0.2.2:3000"; // URL de tu backend Android
   final Dio dio = Dio(); // Usa el prefijo 'Dio' para referenciar la clase Dio

@@ -38,6 +38,7 @@ class _chatPageState extends State<chatPage> {
     socket.emit('joinRoom',roomName);
 
     socket.on('previousMessages', (data) {
+      if (!mounted) return;
       setState(() {
       for (var item in data) {
         _messages.add(item['content'].toString());
@@ -46,8 +47,10 @@ class _chatPageState extends State<chatPage> {
     });
 
     socket.on('message-receive', (data) {
-      setState(() {
-        _messages.add(data); // Agregar el mensaje recibido a la lista
+      if (!mounted) return;
+        setState(() {
+        _messages.add(data['content'].toString());
+      // Agregar el mensaje recibido a la lista
       });
     });
 
@@ -74,9 +77,6 @@ class _chatPageState extends State<chatPage> {
     final messageUser = "$myname:$message"; 
     if (message.isNotEmpty) {
       socket.emit('sendMessage', {'roomName': roomName, 'message': messageUser});
-      setState(() {
-        _messages.add("You: $message"); // Agregar el mensaje enviado a la lista
-      });
       _messageController.clear(); // Limpiar el campo de texto
     }
   }

@@ -48,7 +48,11 @@ class _LogInPageStateWM extends State<LogInPageWM> {
         // Usamos el Provider para acceder a la instancia de PerfilProvider y actualizar el usuario
         final perfilProvider = Provider.of<PerfilProvider>(context, listen: false);
         perfilProvider.updateUser(response); // Actualizamos el perfil del usuario
-        Get.offNamed('/mainWM'); // Redirigimos a la página principal
+        if (response.tipo=='wineLover'){
+          Get.offNamed('/main');
+        } else{
+          Get.offNamed('/mainWM');
+        } 
       } else {
         // Si el login no fue exitoso, mostramos un error
         setState(() {
@@ -64,10 +68,6 @@ class _LogInPageStateWM extends State<LogInPageWM> {
         isLoading = false;
       });
     }
-  }
-
-  void toRegister() async {
-    Get.offNamed('/registerWM');
   }
 
   void toMainPage() async {
@@ -103,16 +103,29 @@ class _LogInPageStateWM extends State<LogInPageWM> {
             isLoading
                 ? CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: logIn,
-                    child: Text('Iniciar Sesión'),
-                  ),
-                ElevatedButton(
-                  onPressed: toRegister,
-                  child: Text('Registrarse'),
+                onPressed: logIn,
+                child: Text(
+                'Iniciar Sesión',
+                style: TextStyle(color: Colors.white), // Texto blanco
+                ),
+                style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFB04D47), // Fondo rosa-rojo (puedes cambiar el valor según tu preferencia)
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20), // Bordes redondeados
+                ),
+                ),
                 ),
                 ElevatedButton(
                   onPressed: toMainPage,
-                  child: Text('Volver a la pagina principal'),
+                  child: Text('Volver a la pagina principal',
+                  style: TextStyle(color: Colors.white), // Texto blanco
+                ),
+                style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFB04D47), // Fondo rosa-rojo (puedes cambiar el valor según tu preferencia)
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20), // Bordes redondeados
+                ),
+                ),
                 ),
           ],
         ),

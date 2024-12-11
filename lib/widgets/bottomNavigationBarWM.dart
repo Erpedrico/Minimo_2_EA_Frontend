@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/screenWineLover/home.dart';
+import 'package:flutter_application_1/screen/screenWineMaker/homeWM.dart';
 import 'package:flutter_application_1/screen/screenWineLover/perfilPersonal.dart';
 import 'package:flutter_application_1/screen/screenWineLover/user.dart';
 import 'package:flutter_application_1/screen/screenWineLover/experiencies.dart';
-import 'package:flutter_application_1/screen/screenWineLover/map.dart';
 
 class BottomNavScaffoldWM extends StatefulWidget {
   @override
@@ -16,10 +15,9 @@ class _BottomNavScaffoldStateWM extends State<BottomNavScaffoldWM> {
 
   // Lista de widgets para las diferentes pantallas
   final List<Widget> _pages = [   
-    UserPage(),          
+    HomePageWM(),
+    UserPage(),        
     ExperienciesPage(),
-    HomePage(),
-    MapPage(),
     PerfilPage(),           
   ];
 
@@ -45,20 +43,16 @@ class _BottomNavScaffoldStateWM extends State<BottomNavScaffoldWM> {
         type: BottomNavigationBarType.fixed, // Asegura que los iconos estén alineados correctamente
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Amigos',
+            icon: Icon(Icons.wine_bar),
+            label: 'MyWinery',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.explore),
-            label: 'Experiencias',
+            label: 'Reviews',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.wine_bar),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
-            label: 'Mapa',
+            label: 'Bookings',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

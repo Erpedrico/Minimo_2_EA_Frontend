@@ -25,6 +25,15 @@ class InitPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Agregar las tres imágenes
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/imagen1.png', width: 100, height: 100),
+              ],
+            ),
+            SizedBox(height: 40),
+
             // Descripción
             Text(
               "Please choose your profile:",
@@ -40,7 +49,7 @@ class InitPage extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {
                 // Redirige a la página Wine lover
-                Get.offNamed('/login');
+                Get.offNamed('/lyr');
               },
               icon: Icon(
                 Icons.person, 
@@ -70,7 +79,7 @@ class InitPage extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {
                 // Redirige a la página Wine maker
-                Get.offAllNamed('/loginWM');
+                Get.offAllNamed('/lyrWM');
               },
               icon: Icon(
                 Icons.local_bar, 

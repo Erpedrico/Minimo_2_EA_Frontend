@@ -18,6 +18,7 @@ class _RegisterPageStateWM extends State<RegisterPageWM> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController mailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();  // Nuevo campo
   final TextEditingController commentController = TextEditingController();
 
 
@@ -25,7 +26,7 @@ class _RegisterPageStateWM extends State<RegisterPageWM> {
   final UserService userService = UserService();
 
   // Variable para el tipo de usuario
-  String selectedType = 'wineLover';
+  String selectedType = 'wineMaker';
 
   // Función para manejar el registro
   Future<void> register() async {
@@ -52,7 +53,7 @@ class _RegisterPageStateWM extends State<RegisterPageWM> {
         // Usamos el Provider para acceder a la instancia de PerfilProvider y actualizar el usuario
         final perfilProvider = Provider.of<PerfilProvider>(context, listen: false);
         perfilProvider.updateUser(response); // Actualizamos el perfil del usuario
-        Get.offNamed('/mainWM'); // Redirigimos a la página principal
+        Get.offNamed('/main'); // Redirigimos a la página principal
       } else {
         // Si el login no fue exitoso, mostramos un error
         setState(() {
@@ -61,8 +62,8 @@ class _RegisterPageStateWM extends State<RegisterPageWM> {
     }
   }
 
-  void toLogIn() async {
-    Get.offNamed('/loginWM');
+  void toMainPage() async {
+    Get.offNamed('/');
   }
 
   @override
@@ -93,8 +94,14 @@ class _RegisterPageStateWM extends State<RegisterPageWM> {
                 controller: mailController,
                 decoration: InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
-                validator: (value) =>
-                    value == null || !value.contains('@') ? 'Email inválido' : null,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Campo requerido';
+                  } else if (!RegExp(r'^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
+                    return 'Email inválido';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
                 controller: passwordController,
@@ -104,17 +111,46 @@ class _RegisterPageStateWM extends State<RegisterPageWM> {
                     value == null || value.length < 6 ? 'Mínimo 6 caracteres' : null,
               ),
               TextFormField(
+                controller: confirmPasswordController,
+                decoration: InputDecoration(labelText: 'Confirmar Password'),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Campo requerido';
+                  } else if (value != passwordController.text) {
+                    return 'Las contraseñas no coinciden';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
                 controller: commentController,
                 decoration: InputDecoration(labelText: 'Comment'),
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: register,
-                child: Text('Registrar'),
+                child: Text('Registrar',
+                style: TextStyle(color: Colors.white), // Texto blanco
+                ),
+                style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFB04D47), // Fondo rosa-rojo (puedes cambiar el valor según tu preferencia)
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20), // Bordes redondeados
+                ),
+                ),
               ),
               ElevatedButton(
-                onPressed: toLogIn,
-                child: Text('Volver al login'),
+                onPressed: toMainPage,
+                child: Text('Volver a la pagina principal',
+                style: TextStyle(color: Colors.white), // Texto blanco
+                ),
+                style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFB04D47), // Fondo rosa-rojo (puedes cambiar el valor según tu preferencia)
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20), // Bordes redondeados
+                ),
+                ),
               ),
             ],
           ),
@@ -123,4 +159,3 @@ class _RegisterPageStateWM extends State<RegisterPageWM> {
     );
   }
 }
-
