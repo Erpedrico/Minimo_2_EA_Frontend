@@ -12,7 +12,7 @@ class TimerService extends ChangeNotifier {
   void _startTimer() {
     _timer = Timer.periodic(Duration(minutes: 1), (timer) {
       _elapsedMinutes++;
-      if (_elapsedMinutes % 10 == 0) {
+      if (_elapsedMinutes % 1 == 0) {
         _notifyUser();
       }
     });

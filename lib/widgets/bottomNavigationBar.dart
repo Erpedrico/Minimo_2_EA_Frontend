@@ -15,6 +15,9 @@ class BottomNavScaffold extends StatefulWidget {
 class _BottomNavScaffoldState extends State<BottomNavScaffold> {
   // Índice para controlar la pestaña seleccionada
   int _selectedIndex = 2;
+  
+  // Variable para evitar mostrar el dialog varias veces
+  bool _dialogShown = false;
 
   // Lista de widgets para las diferentes pantallas
   final List<Widget> _pages = [   
@@ -38,11 +41,20 @@ class _BottomNavScaffoldState extends State<BottomNavScaffold> {
 
     final timerService = Provider.of<TimerService>(context, listen: true);
     if (timerService.elapsedMinutes % 10 == 0 && timerService.elapsedMinutes > 0) {
-      _showTakeABreakDialog();
+      // Retrasar el diálogo hasta que la construcción esté terminada
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showTakeABreakDialog();
+      });
     }
   }
 
   void _showTakeABreakDialog() {
+    // Marca que el dialog ya ha sido mostrado
+    setState(() {
+      _dialogShown = true;
+    });
+
+    // Muestra el dialog
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -50,7 +62,13 @@ class _BottomNavScaffoldState extends State<BottomNavScaffold> {
         content: Text("Llevas mucho tiempo con el móvil, ¿qué tal un descanso?"),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              Navigator.pop(context);
+              // Restablece la bandera después de que el diálogo se cierre
+              setState(() {
+                _dialogShown = false;
+              });
+            },
             child: Text("Ok"),
           ),
         ],
@@ -61,7 +79,6 @@ class _BottomNavScaffoldState extends State<BottomNavScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Fondo lila aplicado correctamente a toda la pantalla
       backgroundColor: Color(0xFFD8BFD8), // Lila suave (Hex: #D8BFD8)
       body: _pages[_selectedIndex], // Muestra la página según el índice seleccionado
       bottomNavigationBar: BottomNavigationBar(
