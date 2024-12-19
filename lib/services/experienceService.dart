@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 
 class ExperienceService {
   final String baseUrl = "http://127.0.0.1:3000/api"; // URL de tu backend web
-  //final String baseUrl = "http://10.0.2.2:3000"; // URL de tu backend Android
+  //final String baseUrl = "http://10.0.2.2:3000/api"; // URL de tu backend Android
   final Dio dio = Dio(); // Instancia de Dio para realizar solicitudes HTTP
   var statusCode;
   var data;

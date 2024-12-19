@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "468046131166",
+    "project_id": "winners-e198d",
+    "storage_bucket": "winners-e198d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468046131166:android:881ae62e6025fc5ead374f",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468046131166-idft4nb69vaf8fgrka8guv10m3ko7gus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-H-3LDChfI82hEfDgUQ0VA2WtA_TgUgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468046131166-idft4nb69vaf8fgrka8guv10m3ko7gus.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

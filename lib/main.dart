@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/providers/perfilProvider.dart';
 import 'package:flutter_application_1/conciencia_digital/timerService.dart';
+import 'package:flutter_application_1/screen/signinscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/screen/initPage.dart';
@@ -16,7 +17,9 @@ import 'package:flutter_application_1/screen/screenWineMaker/registerWM.dart';
 import 'package:flutter_application_1/widgets/bottomNavigationBarWM.dart';
 import 'package:flutter_application_1/widgets/tabBarScaffoldWM.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
@@ -61,6 +64,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/main',
           page: () => BottomNavScaffold(),
+        ),
+        GetPage(
+          name: '/google',
+          page: () => SignInScreen(),
         ),
          GetPage(
           name: '/loginWM',

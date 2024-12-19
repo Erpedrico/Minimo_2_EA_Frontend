@@ -2,8 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/userModel.dart';
 import 'package:flutter_application_1/providers/perfilProvider.dart';
 import 'package:flutter_application_1/services/userService.dart';
+import 'package:flutter_application_1/utils/authentication.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/utils/authentication.dart';
+
+
+const List<String> scopes = <String>[
+  'email',
+];
+
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  clientId: 'TU_CLIENT_ID.apps.googleusercontent.com',
+  scopes: scopes,
+);
 
 class LogInPage extends StatefulWidget {
   @override
@@ -13,11 +27,45 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  
+
   bool isLoading = false;
   String errorMessage = '';
 
   final UserService userService = UserService();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      // Inicia sesión con Google
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        // El usuario canceló el inicio de sesión
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Crea credenciales para Firebase
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Autentica con Firebase
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+
+      // Obtén el correo electrónico del usuario
+      final String? email = userCredential.user?.email;
+      print('Usuario autenticado: $email');
+
+      // Aquí puedes enviar el correo a tu API
+    } catch (e) {
+      print('Error al iniciar sesión con Google: $e');
+    }
+  }
 
   // Función para manejar el login
   void logIn() async {
@@ -69,10 +117,42 @@ class _LogInPageState extends State<LogInPage> {
       });
     }
   }
+  
+  Future<void> _handleSignInWithGoogle() async {
+    setState(() {
+      isLoading = true;
+      errorMessage = '';
+    });
 
+    try {
+      // Inicia sesión con Google
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser != null) {
+          print('Usuario autenticado y enviado a la API correctamente');
+        } else {
+          // Manejo de errores al enviar a la API
+          setState(() {
+            errorMessage = 'Error al enviar el correo a la API';
+          });
+        }
+    } catch (e) {
+      setState(() {
+        errorMessage = 'Error al iniciar sesión con Google: $e';
+      });
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   void toMainPage() async {
     Get.offNamed('/');
+  }
+
+  void toGoogle() async {
+    Get.offNamed('/google');
   }
 
   @override
@@ -105,31 +185,49 @@ class _LogInPageState extends State<LogInPage> {
                 ? CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: logIn,
-                    child: Text('Iniciar Sesión',
-                    style: TextStyle(color: Colors.white), // Texto blanco
-                ),
-                style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFB04D47), // Fondo rosa-rojo (puedes cambiar el valor según tu preferencia)
+                    child: Text(
+                      'Iniciar Sesión',
+                      style: TextStyle(color: Colors.white), // Texto blanco
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFB04D47), // Fondo rosa-rojo
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20), // Bordes redondeados
+                      ),
+                    ),
+                  ),
+            ElevatedButton(
+              onPressed: toMainPage,
+              child: Text(
+                'Volver a la página principal',
+                style: TextStyle(color: Colors.white), // Texto blanco
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFB04D47), // Fondo rosa-rojo
                 shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20), // Bordes redondeados
-                ),
-                ),
-                ),
-                ElevatedButton(
-                  onPressed: toMainPage,
-                  child: Text('Volver a la pagina principal',
-                  style: TextStyle(color: Colors.white), // Texto blanco
-                ),
-                style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFB04D47), // Fondo rosa-rojo (puedes cambiar el valor según tu preferencia)
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20), // Bordes redondeados
-                ),
+                  borderRadius: BorderRadius.circular(20), // Bordes redondeados
                 ),
               ),
+            ),
+            ElevatedButton(
+              onPressed: toGoogle,
+              child: Text(
+                'Iniciar sesión con Google',
+                style: TextStyle(color: Colors.white), // Texto blanco
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFB04D47), // Fondo rosa-rojo
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20), // Bordes redondeados
+                ),
+              ),
+            ),
+            // Aquí el FutureBuilder
           ],
         ),
       ),
     );
   }
 }
+
+

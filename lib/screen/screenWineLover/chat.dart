@@ -19,11 +19,16 @@ class _chatPageState extends State<chatPage> {
   void initState() {
     super.initState();
 
-    // Conectarse al servidor WebSocket
+    //Conectarse al servidor WebSocket
     socket = IO.io('http://localhost:3000', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
+
+    /*socket = IO.io('http://10.0.2.2:3000', <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': false,
+    });*/
 
     // Manejo de eventos
     socket.on('connect', (_) {
